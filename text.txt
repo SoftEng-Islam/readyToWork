@@ -1,0 +1,53 @@
+You are a senior full-stack engineer assigned to improve a modern web package.json file so we can use it most of web development projects like e-commerce apps or social media.
+
+Here you will find only 6 package.json files and You will combine all in one, So we will get a one ready package.json We want most famous tools exist in that file (package.json), and also there are somethings that I don't want like firebase stuff.
+We will only use
+# ⚙️ Back-End (Express)
+
+- **Runtime**: Node.js
+- **Framework**: Express.js (v4 / v5)
+- **Language**: TypeScript
+- **Async Handling**: express-async-handler
+- **Validation & Schemas**: Zod
+- **Security**: Helmet, CORS
+- **Data Aggregation**: GraphQL (Apollo Server) OR REST (vite-express)
+- **Logging**: Morgan / Winston / Pino
+
+# 🎨 Front-End (Vue 3)
+
+- **Core Framework**: Vue 3 (Composition API / `<script setup>`)
+- **Build Tool**: Vite
+- **State Management**: Pinia
+- **Routing**: Vue Router
+- **Styling UI**: Tailwind CSS + DaisyUI
+- **Data Fetching**: Axios / `@vueuse/core` (`useFetch`)
+- **Utilities**: VueUse
+- **Animations**: auto-animate / animate.css
+- **Notifications**: vue-toastification
+- **Icons**: unplugin-icons
+- **Forms**: FormKit / VeeValidate
+
+*(Note: Avoid old Vue 2 packages like `vue-class-component` or `vue-property-decorator`)*
+
+
+# 🔐 Authentication & Security
+
+- **Modern Standard**: [Better Auth](https://www.better-auth.com/)
+- **Session Management**: JWT (jsonwebtoken)
+- **Hashing**: Argon2
+- **Environment**: dotenv
+
+# 🗄️ Database & ORM
+
+- **Relational DB**: PostgreSQL
+- **Cloud Provider**: [Neon.tech](https://neon.tech/) (Serverless Postgres)
+- **NoSQL (Optional)**: MongoDB (with Mongoose)
+- **ORM**: [Drizzle ORM](https://orm.drizzle.team/)
+  *(Drizzle is lightweight, blazing fast, and provides zero-overhead TypeScript inference)*
+- **Caching**: Redis (Optional)
+
+---
+
+Also if you found anything doesn't make sense or wrong, or there's something better we can use instead just do it, or if there anything missing add it, or something we must remove or don't use remove it.
+
+in the end I want you also to make a readme.md file full with all information about the json file and why each package we add and use.

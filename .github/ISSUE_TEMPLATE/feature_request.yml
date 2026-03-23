@@ -1,0 +1,38 @@
+name: Feature request
+description: Suggest an improvement to the starter
+title: '[Feature]: '
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: Use this form for improvements that would make the starter more useful or easier to extend.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or gap
+      description: What problem are you trying to solve?
+      placeholder: The starter includes placeholder payment routes, but there is no Stripe integration example.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the change you want to see.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: List any alternative approaches you considered.
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Additional context
+      description: Share constraints, screenshots, or implementation notes that would help scope the request.

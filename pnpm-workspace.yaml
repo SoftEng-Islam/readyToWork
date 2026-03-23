@@ -1,0 +1,6 @@
+onlyBuiltDependencies:
+  - "@apollo/protobufjs"
+  - "@parcel/watcher"
+  - argon2
+  - esbuild
+  - vue-demi
