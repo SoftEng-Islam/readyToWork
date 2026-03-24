@@ -1,0 +1,16 @@
+meta {
+  name: Get Checkout Session
+  type: http
+  seq: 4
+  tags: [
+    current
+    payments
+    stripe
+  ]
+}
+
+get {
+  url: {{apiUrl}}/payments/checkout-session/{{checkoutSessionId}}
+  body: none
+  auth: none
+}

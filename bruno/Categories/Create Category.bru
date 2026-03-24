@@ -1,0 +1,28 @@
+meta {
+  name: Create Category
+  type: http
+  seq: 2
+  tags: [
+    planned
+    contract
+    categories
+  ]
+}
+
+post {
+  url: {{apiUrl}}/categories
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  content-type: application/json
+}
+
+body:json {
+  {
+    "name": "Accessories",
+    "slug": "accessories"
+  }
+}

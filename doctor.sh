@@ -52,21 +52,21 @@ process.exit(0)
 ' "$1" "$2"
 }
 
-mask_database_url() {
+mask_connection_url() {
   if ! has_cmd node; then
-    printf '%s\n' '(DATABASE_URL hidden)'
+    printf '%s\n' '(connection URL hidden)'
     return
   fi
 
   node -e '
 const raw = process.argv[1]
-try {
-  const url = new URL(raw)
-  if (url.password) url.password = "***"
-  console.log(url.toString())
-} catch {
-  console.log("(invalid DATABASE_URL)")
-}
+  try {
+    const url = new URL(raw)
+    if (url.password) url.password = "***"
+    console.log(url.toString())
+  } catch {
+    console.log("(invalid connection URL)")
+  }
 ' "$1"
 }
 
@@ -97,6 +97,33 @@ socket.on("timeout", () => {
   process.exit(1)
 })
 socket.on("error", () => process.exit(1))
+' "$1"
+}
+
+check_mongo_connection() {
+  if ! has_cmd node; then
+    return 2
+  fi
+
+  node -e '
+const raw = process.argv[1]
+
+let mongoose
+try {
+  mongoose = require("mongoose")
+} catch {
+  process.exit(3)
+}
+
+;(async () => {
+  try {
+    await mongoose.connect(raw, { serverSelectionTimeoutMS: 3000 })
+    await mongoose.disconnect()
+    process.exit(0)
+  } catch {
+    process.exit(1)
+  }
+})()
 ' "$1"
 }
 
@@ -176,7 +203,7 @@ load_env_file
 
 say ""
 say "Database source: $database_source"
-say "Database target: $(mask_database_url "$DATABASE_URL")"
+say "Database target: $(mask_connection_url "$DATABASE_URL")"
 
 if check_tcp_database "$DATABASE_URL"; then
   pass "PostgreSQL server port is reachable"
@@ -197,6 +224,25 @@ if has_cmd psql; then
   fi
 else
   warn "Database login test skipped because psql is not installed"
+fi
+
+if [ -n "${MONGODB_URI-}" ]; then
+  say ""
+  say "MongoDB target: $(mask_connection_url "$MONGODB_URI")"
+
+  if check_mongo_connection "$MONGODB_URI"; then
+    pass "MongoDB connection check passed"
+  else
+    mongo_status=$?
+    if [ "$mongo_status" -eq 3 ]; then
+      fail "mongoose is not installed, so MongoDB support is unavailable"
+    else
+      fail "Could not connect to MongoDB with MONGODB_URI"
+    fi
+  fi
+else
+  say ""
+  say "MongoDB check skipped because MONGODB_URI is empty"
 fi
 
 say ""

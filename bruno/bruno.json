@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Commerce Starter API",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

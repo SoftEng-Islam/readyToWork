@@ -1,0 +1,20 @@
+meta {
+  name: Logout
+  type: http
+  seq: 5
+  tags: [
+    planned
+    contract
+    auth
+  ]
+}
+
+post {
+  url: {{apiUrl}}/auth/logout
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}

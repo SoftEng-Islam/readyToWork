@@ -1,0 +1,26 @@
+meta {
+  name: Validate Coupon
+  type: http
+  seq: 1
+  tags: [
+    planned
+    contract
+    coupons
+  ]
+}
+
+post {
+  url: {{apiUrl}}/coupons/validate
+  body: json
+  auth: none
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "code": "{{couponCode}}"
+  }
+}

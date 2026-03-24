@@ -1,0 +1,16 @@
+meta {
+  name: List Product Reviews
+  type: http
+  seq: 1
+  tags: [
+    planned
+    contract
+    reviews
+  ]
+}
+
+get {
+  url: {{apiUrl}}/products/{{productSlug}}/reviews
+  body: none
+  auth: none
+}

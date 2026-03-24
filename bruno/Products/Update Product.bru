@@ -1,0 +1,33 @@
+meta {
+  name: Update Product
+  type: http
+  seq: 5
+  tags: [
+    planned
+    contract
+    products
+  ]
+}
+
+put {
+  url: {{apiUrl}}/products/{{productId}}
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  content-type: application/json
+}
+
+body:json {
+  {
+    "name": "Studio Tote",
+    "description": "Updated catalog copy.",
+    "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80",
+    "category": "Accessories",
+    "price": 159,
+    "stock": 9,
+    "isFeatured": true
+  }
+}

@@ -426,6 +426,63 @@ You may add these later if your app needs them:
 
 - `Redis` for caching
 - `MongoDB` for extra document storage
+
+## 15. MongoDB Support
+
+MongoDB support is now wired into the server, but it stays optional until you set `MONGODB_URI`.
+
+Example:
+
+```env
+MONGODB_URI=mongodb://127.0.0.1:27017/commerce
+```
+
+How it works:
+
+- If `MONGODB_URI` is empty, the server starts without MongoDB.
+- If `MONGODB_URI` has a value, the server tries to connect to MongoDB during startup.
+- The REST health route and the GraphQL health query both report the MongoDB connection state.
+
+This means MongoDB is ready for future modules like:
+
+- user profiles
+- notifications
+- activity logs
+- product reviews
+
+## 16. Bruno API Collection
+
+This project has a `bruno/` folder for API testing in Bruno.
+
+How it is arranged now:
+
+- requests tagged `current` match APIs that already exist in the server
+- requests tagged `planned` are future API contracts you can implement next
+- requests tagged `smoke` are the fastest checks for health, auth, products, and GraphQL
+
+Important current requests include:
+
+- `GET /api/health`
+- `POST /api/auth/login`
+- `GET /api/auth/session`
+- `GET /api/products`
+- `GET /api/products/:slug`
+- `GET /api/cart`
+- `GET /api/orders`
+- `GET /api/payments`
+- `POST /graphql`
+
+Planned requests are also prepared for:
+
+- users
+- checkout
+- categories
+- inventory
+- reviews
+- coupons
+- shipping
+- notifications
+- admin endpoints
 - `Nginx` for reverse proxy
 - `pm2` for process management
 - Docker if your team likes containers

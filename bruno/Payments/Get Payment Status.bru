@@ -1,0 +1,30 @@
+meta {
+  name: Get Payment Status
+  type: http
+  seq: 1
+  tags: [
+    current
+    payments
+  ]
+}
+
+get {
+  url: {{apiUrl}}/payments
+  body: none
+  auth: none
+}
+
+tests {
+  test('payments returns 200', function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test('payments returns provider metadata', function () {
+    const body = res.getBody();
+
+    expect(body.provider).to.equal('stripe');
+    expect(body.status).to.be.a('string');
+    expect(body.checkoutMode).to.equal('hosted');
+    expect(body).to.have.property('webhookStatus');
+  });
+}

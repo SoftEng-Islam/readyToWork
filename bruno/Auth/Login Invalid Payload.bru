@@ -1,0 +1,40 @@
+meta {
+  name: Login Invalid Payload
+  type: http
+  seq: 6
+  tags: [
+    current
+    auth
+    validation
+  ]
+}
+
+post {
+  url: {{apiUrl}}/auth/login
+  body: json
+  auth: none
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "email": "invalid-email",
+    "password": "short"
+  }
+}
+
+tests {
+  test('invalid login payload returns 400', function () {
+    expect(res.getStatus()).to.equal(400);
+  });
+
+  test('invalid login payload returns validation issues', function () {
+    const body = res.getBody();
+
+    expect(body.message).to.equal('Validation failed');
+    expect(body).to.have.property('issues');
+  });
+}

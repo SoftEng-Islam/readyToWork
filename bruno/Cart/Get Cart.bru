@@ -1,0 +1,28 @@
+meta {
+  name: Get Cart
+  type: http
+  seq: 1
+  tags: [
+    current
+    cart
+  ]
+}
+
+get {
+  url: {{apiUrl}}/cart
+  body: none
+  auth: none
+}
+
+tests {
+  test('cart returns 200', function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test('cart returns scaffold payload', function () {
+    const body = res.getBody();
+
+    expect(body.items).to.be.an('array');
+    expect(body.message).to.be.a('string');
+  });
+}

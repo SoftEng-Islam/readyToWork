@@ -1,7 +1,16 @@
 export const typeDefs = `#graphql
+  type MongoHealth {
+    enabled: Boolean!
+    state: String!
+    host: String
+    name: String
+  }
+
   type Health {
     status: String!
+    service: String!
     uptime: Float!
+    mongo: MongoHealth!
   }
 
   type Product {
@@ -22,4 +31,4 @@ export const typeDefs = `#graphql
     health: Health!
     products: [Product!]!
   }
-`
+`;

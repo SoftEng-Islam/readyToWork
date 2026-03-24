@@ -1,0 +1,20 @@
+meta {
+  name: Get Stock
+  type: http
+  seq: 1
+  tags: [
+    planned
+    contract
+    inventory
+  ]
+}
+
+get {
+  url: {{apiUrl}}/inventory/{{productId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}

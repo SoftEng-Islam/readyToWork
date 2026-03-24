@@ -1,0 +1,33 @@
+meta {
+  name: Create Order
+  type: http
+  seq: 3
+  tags: [
+    planned
+    contract
+    orders
+  ]
+}
+
+post {
+  url: {{apiUrl}}/orders
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  content-type: application/json
+}
+
+body:json {
+  {
+    "items": [
+      {
+        "productId": "{{productId}}",
+        "quantity": 1
+      }
+    ],
+    "couponCode": "{{couponCode}}"
+  }
+}

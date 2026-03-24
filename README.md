@@ -7,6 +7,9 @@ Commerce Starter is a full-stack Vue 3 + Express starter for storefronts, checko
 - Vue 3 pages for home, catalog, product details, cart, checkout, orders, wishlist, account, and admin flows
 - Express 5 API modules for health, auth, products, cart, orders, and payments
 - Apollo GraphQL endpoint at `/graphql`
+- Ruru GraphQL IDE served from the same GraphQL route in the browser
+- Hosted Stripe Checkout session flow for the storefront checkout page
+- Bruno collection under `bruno/` with runnable smoke tests for implemented APIs and contract requests for planned ones
 - Shared Zod schemas and TypeScript types across client and server
 - Drizzle schema definitions for users, products, carts, and orders
 - Developer tooling with ESLint, Prettier, Vitest, and GitHub Actions CI
@@ -50,41 +53,71 @@ pnpm dev
 - Frontend: `http://localhost:5173`
 - REST health check: `http://localhost:3000/api/health`
 - GraphQL: `http://localhost:3000/graphql`
+- Ruru GraphQL IDE: `http://localhost:3000/graphql`
+- Stripe Checkout entry point: `POST http://localhost:3000/api/payments/checkout-session`
+- Bruno collection root: `./bruno`
 
 ## Environment
 
 Copy `.env.example` to `.env` and update the values that matter for your environment.
 
-| Variable                    | Purpose                                                 |
-| --------------------------- | ------------------------------------------------------- |
-| `APP_NAME`                  | Server-side application name used in logs and responses |
-| `VITE_APP_NAME`             | Brand name shown in the frontend                        |
-| `PORT` / `HOST`             | Express bind settings                                   |
-| `API_PREFIX`                | REST API prefix, default `/api`                         |
-| `GRAPHQL_PATH`              | GraphQL mount path, default `/graphql`                  |
-| `DATABASE_URL`              | PostgreSQL connection string                            |
-| `BETTER_AUTH_SECRET`        | Secret for auth/session signing                         |
-| `BETTER_AUTH_URL`           | Public backend base URL                                 |
-| `JWT_SECRET`                | Token signing secret for JWT-style flows                |
-| `CORS_ORIGIN`               | Allowed browser origins, comma-separated                |
-| `REDIS_URL` / `MONGODB_URI` | Optional integrations for extended builds               |
-| `VITE_API_BASE_URL`         | Client base URL for REST calls                          |
+| Variable                | Purpose                                                    |
+| ----------------------- | ---------------------------------------------------------- |
+| `APP_NAME`              | Server-side application name used in logs and responses    |
+| `VITE_APP_NAME`         | Brand name shown in the frontend                           |
+| `PORT` / `HOST`         | Express bind settings                                      |
+| `FRONTEND_URL`          | Frontend base URL used for checkout return redirects       |
+| `API_PREFIX`            | REST API prefix, default `/api`                            |
+| `GRAPHQL_PATH`          | GraphQL mount path, default `/graphql`                     |
+| `DATABASE_URL`          | PostgreSQL connection string                               |
+| `BETTER_AUTH_SECRET`    | Secret for auth/session signing                            |
+| `BETTER_AUTH_URL`       | Public backend base URL                                    |
+| `JWT_SECRET`            | Token signing secret for JWT-style flows                   |
+| `CORS_ORIGIN`           | Allowed browser origins, comma-separated                   |
+| `REDIS_URL`             | Optional Redis connection string                           |
+| `MONGODB_URI`           | Optional MongoDB connection string, enables startup wiring |
+| `STRIPE_SECRET_KEY`     | Stripe secret key for hosted checkout sessions             |
+| `STRIPE_WEBHOOK_SECRET` | Stripe webhook signing secret                              |
+| `STRIPE_CURRENCY`       | Currency used when the backend builds Checkout line items  |
+| `VITE_API_BASE_URL`     | Client base URL for REST calls                             |
+
+If `MONGODB_URI` is set, the server now attempts a MongoDB connection during boot and exposes the result in both `/api/health` and `health` over GraphQL. Leave it empty to run without MongoDB.
+
+Example:
+
+```env
+MONGODB_URI=mongodb://127.0.0.1:27017/commerce
+```
+
+## Bruno
+
+The [`bruno/`](./bruno/) collection is organized by API domain.
+
+- Requests tagged `current` map to endpoints that exist in the codebase today and include runnable tests.
+- Requests tagged `planned` are API contracts for modules the project still needs, such as users, checkout, categories, inventory, reviews, coupons, shipping, notifications, and admin flows.
+- Requests tagged `smoke` are the fastest way to validate the current stack after a change.
+
+Update the collection variables in [`bruno/collection.bru`](./bruno/collection.bru) if your local base URLs or placeholder ids differ from the defaults.
+
+## Stripe Checkout
+
+The storefront checkout page now creates hosted Stripe Checkout Sessions through the backend. Full project-specific setup notes live in [`docs/stripe-checkout.md`](./docs/stripe-checkout.md).
 
 ## Useful Scripts
 
-| Command            | Purpose                                                   |
-| ------------------ | --------------------------------------------------------- |
-| `pnpm dev`         | Run the Vite client and Express server together           |
-| `pnpm dev:client`  | Run only the frontend                                     |
-| `pnpm dev:server`  | Run only the backend                                      |
-| `pnpm check:setup` | Verify local tooling, `.env`, and PostgreSQL reachability |
-| `pnpm lint`        | Lint the repo                                             |
-| `pnpm type-check`  | Type-check client and server code                         |
-| `pnpm test`        | Start Vitest in watch mode                                |
-| `pnpm test:run`    | Run the test suite once                                   |
-| `pnpm build`       | Type-check and build the client bundle                    |
-| `pnpm check`       | Run lint, type-check, tests, and build in one pass        |
-| `pnpm scaffold`    | Re-run the scaffold generator                             |
+| Command            | Purpose                                                                   |
+| ------------------ | ------------------------------------------------------------------------- |
+| `pnpm dev`         | Run the Vite client and Express server together                           |
+| `pnpm dev:client`  | Run only the frontend                                                     |
+| `pnpm dev:server`  | Run only the backend                                                      |
+| `pnpm check:setup` | Verify local tooling, `.env`, PostgreSQL, and optional Mongo reachability |
+| `pnpm lint`        | Lint the repo                                                             |
+| `pnpm type-check`  | Type-check client and server code                                         |
+| `pnpm test`        | Start Vitest in watch mode                                                |
+| `pnpm test:run`    | Run the test suite once                                                   |
+| `pnpm build`       | Type-check and build the client bundle                                    |
+| `pnpm check`       | Run lint, type-check, tests, and build in one pass                        |
+| `pnpm scaffold`    | Re-run the scaffold generator                                             |
 
 ## Project Structure
 
@@ -107,7 +140,10 @@ Before turning this into a public GitHub repository, update the project-specific
 
 ## Documentation
 
+- Project guides live in [docs/README.md](./docs/README.md).
 - Beginner-friendly setup notes live in [Overview.md](./Overview.md).
+- Ruru usage notes live in [RURU.md](./RURU.md).
+- Stripe Checkout notes live in [docs/stripe-checkout.md](./docs/stripe-checkout.md).
 - Contribution guidance lives in [CONTRIBUTING.md](./CONTRIBUTING.md).
 - Security reporting guidance lives in [SECURITY.md](./SECURITY.md).
 

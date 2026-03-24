@@ -1,0 +1,28 @@
+meta {
+  name: Get Missing Product
+  type: http
+  seq: 3
+  tags: [
+    current
+    products
+    validation
+  ]
+}
+
+get {
+  url: {{apiUrl}}/products/{{missingProductSlug}}
+  body: none
+  auth: none
+}
+
+tests {
+  test('missing product returns 404', function () {
+    expect(res.getStatus()).to.equal(404);
+  });
+
+  test('missing product returns a clear message', function () {
+    const body = res.getBody();
+
+    expect(body.message).to.equal('Product not found');
+  });
+}

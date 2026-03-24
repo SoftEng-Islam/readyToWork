@@ -1,0 +1,29 @@
+meta {
+  name: Create User
+  type: http
+  seq: 2
+  tags: [
+    planned
+    contract
+    users
+  ]
+}
+
+post {
+  url: {{apiUrl}}/users
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  content-type: application/json
+}
+
+body:json {
+  {
+    "name": "{{customerName}}",
+    "email": "{{customerEmail}}",
+    "role": "customer"
+  }
+}

@@ -1,0 +1,29 @@
+meta {
+  name: Webhook
+  type: http
+  seq: 3
+  tags: [
+    planned
+    contract
+    payments
+  ]
+}
+
+post {
+  url: {{apiUrl}}/payments/webhook
+  body: json
+  auth: none
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "type": "payment_intent.succeeded",
+    "data": {
+      "orderId": "{{orderId}}"
+    }
+  }
+}

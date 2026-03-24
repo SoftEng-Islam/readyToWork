@@ -1,0 +1,20 @@
+meta {
+  name: Get User By Id
+  type: http
+  seq: 3
+  tags: [
+    planned
+    contract
+    users
+  ]
+}
+
+get {
+  url: {{apiUrl}}/users/{{userId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}

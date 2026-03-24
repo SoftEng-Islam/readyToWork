@@ -1,0 +1,28 @@
+meta {
+  name: Send Order Receipt
+  type: http
+  seq: 1
+  tags: [
+    planned
+    contract
+    notifications
+  ]
+}
+
+post {
+  url: {{apiUrl}}/notifications/order-receipt
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  content-type: application/json
+}
+
+body:json {
+  {
+    "orderId": "{{orderId}}",
+    "email": "{{customerEmail}}"
+  }
+}

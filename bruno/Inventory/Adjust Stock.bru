@@ -1,0 +1,28 @@
+meta {
+  name: Adjust Stock
+  type: http
+  seq: 2
+  tags: [
+    planned
+    contract
+    inventory
+  ]
+}
+
+patch {
+  url: {{apiUrl}}/inventory/{{productId}}
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  content-type: application/json
+}
+
+body:json {
+  {
+    "delta": -1,
+    "reason": "order-created"
+  }
+}

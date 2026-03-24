@@ -1,0 +1,33 @@
+meta {
+  name: Get Quote
+  type: http
+  seq: 1
+  tags: [
+    planned
+    contract
+    shipping
+  ]
+}
+
+post {
+  url: {{apiUrl}}/shipping/quote
+  body: json
+  auth: none
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "country": "Egypt",
+    "city": "Cairo",
+    "items": [
+      {
+        "productId": "{{productId}}",
+        "quantity": 1
+      }
+    ]
+  }
+}

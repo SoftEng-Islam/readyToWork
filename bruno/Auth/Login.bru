@@ -1,0 +1,59 @@
+meta {
+  name: Login
+  type: http
+  seq: 2
+  tags: [
+    current
+    smoke
+    auth
+  ]
+}
+
+post {
+  url: {{apiUrl}}/auth/login
+  body: json
+  auth: none
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "email": "{{customerEmail}}",
+    "password": "{{customerPassword}}"
+  }
+}
+
+script:post-response {
+  if (res.body?.data?.token) {
+    bru.setVar('token', res.body.data.token);
+  }
+}
+
+tests {
+  test('login returns 200', function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test('login returns a session token', function () {
+    const body = res.getBody();
+
+    expect(body).to.have.property('data');
+    expect(body.data).to.have.property('token');
+    expect(body.data.token).to.be.a('string');
+    expect(body.data.token).to.not.be.empty;
+  });
+
+  test('login echoes the requested email', function () {
+    const body = res.getBody();
+
+    expect(body.data.user.email).to.equal('{{customerEmail}}');
+  });
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

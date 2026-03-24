@@ -1,0 +1,20 @@
+meta {
+  name: Get Dashboard Summary
+  type: http
+  seq: 1
+  tags: [
+    planned
+    contract
+    admin
+  ]
+}
+
+get {
+  url: {{apiUrl}}/admin/dashboard
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}

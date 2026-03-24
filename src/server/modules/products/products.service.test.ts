@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getProductBySlug, listProducts } from './products.service';
+import { getProductById, getProductBySlug, listProducts } from './products.service';
 
 describe('products.service', () => {
   it('returns the seeded demo catalog with stable slugs', () => {
@@ -14,6 +14,13 @@ describe('products.service', () => {
     expect(getProductBySlug('minimal-sneakers')).toMatchObject({
       name: 'Minimal Sneakers',
       slug: 'minimal-sneakers',
+    });
+  });
+
+  it('looks up products by id', () => {
+    expect(getProductById('canvas-backpack')).toMatchObject({
+      id: 'canvas-backpack',
+      name: 'Canvas Backpack',
     });
   });
 

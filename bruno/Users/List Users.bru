@@ -1,0 +1,20 @@
+meta {
+  name: List Users
+  type: http
+  seq: 1
+  tags: [
+    planned
+    contract
+    users
+  ]
+}
+
+get {
+  url: {{apiUrl}}/users
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}

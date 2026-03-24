@@ -1,0 +1,28 @@
+meta {
+  name: Get Product By Slug
+  type: http
+  seq: 2
+  tags: [
+    current
+    products
+  ]
+}
+
+get {
+  url: {{apiUrl}}/products/{{productSlug}}
+  body: none
+  auth: none
+}
+
+tests {
+  test('single product returns 200', function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test('single product matches requested slug', function () {
+    const body = res.getBody();
+
+    expect(body.slug).to.equal('{{productSlug}}');
+    expect(body.name).to.be.a('string');
+  });
+}

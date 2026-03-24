@@ -1,0 +1,31 @@
+meta {
+  name: Health
+  type: http
+  seq: 1
+  tags: [
+    current
+    smoke
+    health
+  ]
+}
+
+get {
+  url: {{apiUrl}}/health
+  body: none
+  auth: none
+}
+
+tests {
+  test('health returns 200', function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test('health returns application status', function () {
+    const body = res.getBody();
+
+    expect(body.status).to.equal('ok');
+    expect(body.service).to.be.a('string');
+    expect(body.mongo).to.have.property('enabled');
+    expect(body.mongo).to.have.property('state');
+  });
+}

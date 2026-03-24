@@ -1,0 +1,20 @@
+meta {
+  name: Get Order By Id
+  type: http
+  seq: 2
+  tags: [
+    planned
+    contract
+    orders
+  ]
+}
+
+get {
+  url: {{apiUrl}}/orders/{{orderId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}

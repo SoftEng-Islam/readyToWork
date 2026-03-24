@@ -1,0 +1,28 @@
+meta {
+  name: Register
+  type: http
+  seq: 4
+  tags: [
+    planned
+    contract
+    auth
+  ]
+}
+
+post {
+  url: {{apiUrl}}/auth/register
+  body: json
+  auth: none
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "name": "{{customerName}}",
+    "email": "{{customerEmail}}",
+    "password": "{{customerPassword}}"
+  }
+}

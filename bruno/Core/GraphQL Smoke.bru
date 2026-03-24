@@ -1,0 +1,42 @@
+meta {
+  name: GraphQL Smoke
+  type: http
+  seq: 2
+  tags: [
+    current
+    smoke
+    graphql
+  ]
+}
+
+post {
+  url: {{graphqlUrl}}
+  body: json
+  auth: none
+}
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "query": "query SmokeQuery { hello health { status service mongo { enabled state } } products { id slug name } }"
+  }
+}
+
+tests {
+  test('graphql smoke returns 200', function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test('graphql smoke returns expected data', function () {
+    const body = res.getBody();
+
+    expect(body).to.have.property('data');
+    expect(body.data.hello).to.be.a('string');
+    expect(body.data.health.status).to.equal('ok');
+    expect(body.data.products).to.be.an('array');
+    expect(body.data.products.length).to.be.greaterThan(0);
+  });
+}
