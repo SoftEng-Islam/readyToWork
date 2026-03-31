@@ -7,7 +7,8 @@ import { useUiStore } from '@/client/stores/ui'
 
 const { session, isSignedIn } = useAuthStore()
 const { totalItems } = useCartStore()
-const ui = useUiStore()
+const ui = useUiStore();
+
 const brandName = import.meta.env.VITE_APP_NAME ?? 'Commerce Starter'
 </script>
 
@@ -34,19 +35,11 @@ const brandName = import.meta.env.VITE_APP_NAME ?? 'Commerce Starter'
         <RouterLink :to="appRoutes.account" class="transition hover:text-white">
           {{ isSignedIn ? 'Account' : 'Sign in' }}
         </RouterLink>
-        <RouterLink
-          v-if="session.user?.role === 'admin'"
-          :to="appRoutes.admin"
-          class="transition hover:text-white"
-        >
+        <RouterLink v-if="session.user?.role === 'admin'" :to="appRoutes.admin" class="transition hover:text-white">
           Admin
         </RouterLink>
-        <button
-          type="button"
-          class="rounded-full border border-white/10 px-3 py-1 transition hover:bg-white/5"
-          @click="ui.toggleTheme()"
-        >
-          {{ ui.isDark ? 'Light' : 'Dark' }}
+        <button type="button" class="rounded-full border border-white/10 px-3 py-1 transition hover:bg-white/5" @click="ui.toggleTheme()">
+          {{ ui.themeToggleLabel }}
         </button>
       </nav>
     </div>

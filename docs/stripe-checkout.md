@@ -45,7 +45,7 @@ Behavior:
 Add these to `.env`:
 
 ```env
-FRONTEND_URL=http://localhost:5173
+FRONTEND_URL=http://localhost:3000
 STRIPE_SECRET_KEY=sk_test_...
 STRIPE_WEBHOOK_SECRET=whsec_...
 STRIPE_CURRENCY=usd

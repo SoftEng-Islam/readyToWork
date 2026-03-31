@@ -1,4 +1,5 @@
 import type { Server } from 'node:http';
+import ViteExpress from 'vite-express';
 import { createApp } from './app';
 import { env } from './config/env';
 import { logger } from './config/logger';
@@ -18,9 +19,28 @@ function closeServer(server: Server) {
   });
 }
 
+function normalizeRoutePrefix(pathname: string) {
+  const normalized = pathname.startsWith('/') ? pathname : `/${pathname}`;
+
+  return normalized === '/' ? normalized : normalized.replace(/\/$/, '');
+}
+
+function matchesMountedPath(requestPath: string, mountedPath: string) {
+  return requestPath === mountedPath || requestPath.startsWith(`${mountedPath}/`);
+}
+
 async function bootstrap() {
   const mongoConnection = await connectMongo();
   const app = await createApp();
+  const apiPrefix = normalizeRoutePrefix(env.API_PREFIX);
+  const graphqlPath = normalizeRoutePrefix(env.GRAPHQL_PATH);
+
+  ViteExpress.config({
+    mode: env.NODE_ENV === 'production' ? 'production' : 'development',
+    ignorePaths: (path) =>
+      matchesMountedPath(path, apiPrefix) || matchesMountedPath(path, graphqlPath),
+  });
+
   const server = app.listen(env.PORT, env.HOST, () => {
     logger.info(
       {
@@ -38,6 +58,9 @@ async function bootstrap() {
       'server started',
     );
   });
+
+  await ViteExpress.bind(app, server);
+
   let isShuttingDown = false;
 
   const shutdown = async (signal: NodeJS.Signals) => {

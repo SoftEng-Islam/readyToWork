@@ -98,8 +98,7 @@ DATABASE_URL=postgresql://postgres:postgres@localhost:5432/commerce
 BETTER_AUTH_SECRET=replace-with-a-long-random-string
 BETTER_AUTH_URL=http://localhost:3000
 JWT_SECRET=replace-with-a-long-random-string
-CORS_ORIGIN=http://localhost:5173,http://localhost:5174
-VITE_API_BASE_URL=http://localhost:3000/api
+VITE_API_BASE_URL=/api
 ```
 
 Easy meaning:
@@ -109,8 +108,7 @@ Easy meaning:
 - `BETTER_AUTH_SECRET`: secret key for auth
 - `BETTER_AUTH_URL`: backend base URL
 - `JWT_SECRET`: secret key for tokens
-- `CORS_ORIGIN`: which browser addresses are allowed to talk to the API
-- `VITE_API_BASE_URL`: where the frontend sends API requests
+- `VITE_API_BASE_URL`: where the frontend sends API requests from the same origin
 
 ## 7. PostgreSQL Quick Guide
 
@@ -373,7 +371,6 @@ Change these:
 - `JWT_SECRET`
 - `DATABASE_URL`
 - `BETTER_AUTH_URL`
-- `CORS_ORIGIN`
 
 Also make sure:
 

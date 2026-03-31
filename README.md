@@ -50,7 +50,7 @@ pnpm dev
 
 ### Local Endpoints
 
-- Frontend: `http://localhost:5173`
+- App, REST, and GraphQL: `http://localhost:3000`
 - REST health check: `http://localhost:3000/api/health`
 - GraphQL: `http://localhost:3000/graphql`
 - Ruru GraphQL IDE: `http://localhost:3000/graphql`
@@ -73,13 +73,12 @@ Copy `.env.example` to `.env` and update the values that matter for your environ
 | `BETTER_AUTH_SECRET`    | Secret for auth/session signing                            |
 | `BETTER_AUTH_URL`       | Public backend base URL                                    |
 | `JWT_SECRET`            | Token signing secret for JWT-style flows                   |
-| `CORS_ORIGIN`           | Allowed browser origins, comma-separated                   |
 | `REDIS_URL`             | Optional Redis connection string                           |
 | `MONGODB_URI`           | Optional MongoDB connection string, enables startup wiring |
 | `STRIPE_SECRET_KEY`     | Stripe secret key for hosted checkout sessions             |
 | `STRIPE_WEBHOOK_SECRET` | Stripe webhook signing secret                              |
 | `STRIPE_CURRENCY`       | Currency used when the backend builds Checkout line items  |
-| `VITE_API_BASE_URL`     | Client base URL for REST calls                             |
+| `VITE_API_BASE_URL`     | Client base URL for REST calls, usually `/api`             |
 
 If `MONGODB_URI` is set, the server now attempts a MongoDB connection during boot and exposes the result in both `/api/health` and `health` over GraphQL. Leave it empty to run without MongoDB.
 
@@ -107,15 +106,15 @@ The storefront checkout page now creates hosted Stripe Checkout Sessions through
 
 | Command            | Purpose                                                                   |
 | ------------------ | ------------------------------------------------------------------------- |
-| `pnpm dev`         | Run the Vite client and Express server together                           |
-| `pnpm dev:client`  | Run only the frontend                                                     |
-| `pnpm dev:server`  | Run only the backend                                                      |
+| `pnpm dev`         | Run the single Express server with Vite middleware in development         |
+| `pnpm dev:server`  | Same as `pnpm dev`                                                        |
 | `pnpm check:setup` | Verify local tooling, `.env`, PostgreSQL, and optional Mongo reachability |
 | `pnpm lint`        | Lint the repo                                                             |
 | `pnpm type-check`  | Type-check client and server code                                         |
 | `pnpm test`        | Start Vitest in watch mode                                                |
 | `pnpm test:run`    | Run the test suite once                                                   |
-| `pnpm build`       | Type-check and build the client bundle                                    |
+| `pnpm build`       | Type-check and build the client bundle for the Express server to serve    |
+| `pnpm preview`     | Build and serve the production bundle through Express                     |
 | `pnpm check`       | Run lint, type-check, tests, and build in one pass                        |
 | `pnpm scaffold`    | Re-run the scaffold generator                                             |
 
