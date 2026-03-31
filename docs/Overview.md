@@ -284,6 +284,7 @@ After the app starts, these are useful:
 - Website: `http://localhost:5173/` or `http://localhost:5174/`
 - API health check: `http://localhost:3000/api/health`
 - GraphQL endpoint: `http://localhost:3000/graphql`
+- Embedded Ruru UI: `http://localhost:3000/graphql`
 
 ## 10. Useful Commands
 

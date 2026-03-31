@@ -8,6 +8,21 @@ import { typeDefs } from './typeDefs';
 import { resolvers } from './resolvers';
 import { createGraphQLContext } from './context';
 
+const ruruContentSecurityPolicy = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "connect-src 'self' ws: wss:",
+  "font-src 'self' https: data:",
+  "form-action 'self'",
+  "frame-ancestors 'self'",
+  "img-src 'self' data: blob:",
+  "object-src 'none'",
+  "script-src 'self' 'unsafe-inline'",
+  "script-src-attr 'none'",
+  "style-src 'self' https: 'unsafe-inline'",
+  "worker-src 'self' blob:",
+].join('; ');
+
 function normalizePath(pathname: string) {
   if (pathname.startsWith('/')) {
     return pathname;
@@ -35,6 +50,7 @@ export async function registerGraphQL(app: Express) {
     res
       .status(200)
       .type('html')
+      .setHeader('Content-Security-Policy', ruruContentSecurityPolicy)
       .send(
         ruruHTML({
           endpoint: graphqlPath,

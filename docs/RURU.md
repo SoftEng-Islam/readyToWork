@@ -1,6 +1,6 @@
 # Ruru In This Project
 
-This project already has `ruru` installed and available in the app.
+This project already has `ruru` installed for the embedded app UI, and the standalone CLI is available separately if you want it.
 
 - Package dependency: [package.json](/data/github/dev.readyToWork/package.json)
 - GraphQL registration: [src/server/graphql/index.ts](/data/github/dev.readyToWork/src/server/graphql/index.ts)
@@ -16,7 +16,7 @@ Official references:
 
 ## How It Works Here
 
-In this repo, GraphQL is still served by Apollo Server, but the browser UI is now provided by Ruru.
+In this repo, GraphQL is still served by Apollo Server. Ruru is available as the embedded browser UI at the GraphQL route, and the standalone CLI UI is optional.
 
 - `GET {{GRAPHQL_PATH}}` serves the Ruru interface when the request accepts HTML.
 - `POST {{GRAPHQL_PATH}}` continues to serve the GraphQL API.
@@ -24,9 +24,9 @@ In this repo, GraphQL is still served by Apollo Server, but the browser UI is no
 
 With the default `.env`, that means:
 
-- GraphQL API: `http://localhost:3000/graphql`
-- Ruru UI: `http://localhost:3000/graphql`
-- Ruru static assets: `http://localhost:3000/graphql/ruru-static/`
+- GraphQL API endpoint: `http://localhost:3000/graphql`
+- Embedded Ruru UI: `http://localhost:3000/graphql`
+- Embedded Ruru static assets: `http://localhost:3000/graphql/ruru-static/`
 
 ## How To Use It
 
@@ -36,7 +36,7 @@ With the default `.env`, that means:
 pnpm dev
 ```
 
-2. Open the Ruru UI in your browser:
+2. Open the embedded Ruru UI in your browser:
 
 ```text
 http://localhost:3000/graphql
@@ -76,16 +76,10 @@ Since `ruru` is already installed in this project, you do not need to install it
 
 ### Basic CLI Usage For This Repo
 
-Start your app first:
+If you want the standalone CLI UI, start it separately:
 
 ```bash
-pnpm dev
-```
-
-Then start the Ruru CLI in a second terminal:
-
-```bash
-pnpm exec ruru -Pe http://localhost:3000/graphql
+pnpm ruru
 ```
 
 Then open:
@@ -93,6 +87,8 @@ Then open:
 ```text
 http://localhost:1337
 ```
+
+That is a separate local UI server. It is different from the embedded `/graphql` page served by the Express app.
 
 That command means:
 
@@ -114,7 +110,7 @@ The official CLI page documents these options:
 Use the default port:
 
 ```bash
-pnpm exec ruru -Pe http://localhost:3000/graphql
+pnpm ruru
 ```
 
 Use a different local Ruru port:

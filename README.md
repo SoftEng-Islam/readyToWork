@@ -7,7 +7,7 @@ Commerce Starter is a full-stack Vue 3 + Express starter for storefronts, checko
 - Vue 3 pages for home, catalog, product details, cart, checkout, orders, wishlist, account, and admin flows
 - Express 5 API modules for health, auth, products, cart, orders, and payments
 - Apollo GraphQL endpoint at `/graphql`
-- Ruru GraphQL IDE served from the same GraphQL route in the browser
+- Embedded Ruru GraphQL IDE served from the same GraphQL route in the browser
 - Hosted Stripe Checkout session flow for the storefront checkout page
 - Bruno collection under `bruno/` with runnable smoke tests for implemented APIs and contract requests for planned ones
 - Shared Zod schemas and TypeScript types across client and server
@@ -52,8 +52,8 @@ pnpm dev
 
 - App, REST, and GraphQL: `http://localhost:3000`
 - REST health check: `http://localhost:3000/api/health`
-- GraphQL: `http://localhost:3000/graphql`
-- Ruru GraphQL IDE: `http://localhost:3000/graphql`
+- GraphQL API: `http://localhost:3000/graphql`
+- Embedded Ruru UI: `http://localhost:3000/graphql`
 - Stripe Checkout entry point: `POST http://localhost:3000/api/payments/checkout-session`
 - Bruno collection root: `./bruno`
 
@@ -106,8 +106,9 @@ The storefront checkout page now creates hosted Stripe Checkout Sessions through
 
 | Command            | Purpose                                                                   |
 | ------------------ | ------------------------------------------------------------------------- |
-| `pnpm dev`         | Run the single Express server with Vite middleware in development         |
+| `pnpm dev`         | Run the Express server with Vite middleware in development                |
 | `pnpm dev:server`  | Same as `pnpm dev`                                                        |
+| `pnpm ruru`        | Run only the standalone Ruru CLI UI on `:1337`                            |
 | `pnpm check:setup` | Verify local tooling, `.env`, PostgreSQL, and optional Mongo reachability |
 | `pnpm lint`        | Lint the repo                                                             |
 | `pnpm type-check`  | Type-check client and server code                                         |
