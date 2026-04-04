@@ -6,7 +6,7 @@ Project-specific guides live here.
 
 Other repo documents that still live at the root:
 
-- [Project overview](../Overview.md)
-- [Ruru guide](../RURU.md)
-- [Contribution guide](../CONTRIBUTING.md)
-- [Security policy](../SECURITY.md)
+- [Project overview](./Overview.md)
+- [Ruru guide](./RURU.md)
+- [Contribution guide](./CONTRIBUTING.md)
+- [Security policy](./SECURITY.md)

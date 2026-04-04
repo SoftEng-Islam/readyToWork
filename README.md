@@ -146,6 +146,7 @@ Before turning this into a public GitHub repository, update the project-specific
 - Stripe Checkout notes live in [docs/stripe-checkout.md](./docs/stripe-checkout.md).
 - Contribution guidance lives in [CONTRIBUTING.md](./CONTRIBUTING.md).
 - Security reporting guidance lives in [SECURITY.md](./SECURITY.md).
+- vite-express Repo lives in [vite-express](https://github.com/szymmis/vite-express)
 
 ## License
 
