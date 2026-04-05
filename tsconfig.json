@@ -6,7 +6,16 @@
     "paths": {
       "@/*": [
         "./src/*"
-      ]
+      ],
+      "@shared/*": [
+        "./src/shared/*"
+      ],
+      "@client/*": [
+        "./src/client/*"
+      ],
+      "@server/*": [
+        "./src/server/*"
+      ],
     },
     "strict": true,
     "esModuleInterop": true,
