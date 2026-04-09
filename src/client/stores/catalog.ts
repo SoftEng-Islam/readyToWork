@@ -1,17 +1,28 @@
-import { ref } from 'vue'
+import { ref } from 'vue';
+import { acceptHMRUpdate, defineStore } from 'pinia';
 
-const search = ref('')
-const category = ref('all')
+interface StateInterface {
+	search: string;
+	category: string;
+}
 
-export function useCatalogStore() {
-  function reset() {
-    search.value = ''
-    category.value = 'all'
-  }
+const search = ref('');
+const category = ref('all');
 
-  return {
-    search,
-    category,
-    reset,
-  }
+export const useCatalogStore = defineStore('mainStore', {
+	state: (): StateInterface => ({
+		search: search.value,
+		category: category.value,
+	}),
+	getters: {},
+	actions: {
+		reset() {
+			search.value = '';
+			category.value = 'all';
+		},
+	},
+});
+
+if (import.meta.hot) {
+	import.meta.hot.accept(acceptHMRUpdate(useCatalogStore, import.meta.hot));
 }

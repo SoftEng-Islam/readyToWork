@@ -1,10 +1,10 @@
-<script setup>
-import { Themes } from "@/utils/Themes.js";
+<script setup lang="ts">
+import { Themes } from "@client/utils/Themes.js";
 
 const availableThemes = Themes.availableThemes;
 const theme = Themes.currentTheme;
 
-const setTheme = (newTheme) => {
+const setTheme = (newTheme: string) => {
 	Themes.apply(newTheme);
 };
 </script>
@@ -17,7 +17,7 @@ const setTheme = (newTheme) => {
 				<path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
 			</svg>
 		</div>
-		<ul tabindex="0" class="dropdown-content bg-base-200 rounded-box z-10 w-40 p-2 shadow-2xl ring-1 ring-base-300">
+		<ul tabindex="0" class="dropdown-content bg-base-200 rounded-box z-50 w-40 p-2 shadow-2xl ring-1 ring-base-300">
 			<li v-for="t in availableThemes" :key="t.name">
 
 				<label class="flex items-center gap-2 btn btn-sm btn-block btn-ghost justify-start" :class="{ 'btn-active': theme === t.name }">
@@ -30,5 +30,3 @@ const setTheme = (newTheme) => {
 		</ul>
 	</div>
 </template>
-
-<style scoped lang="scss"></style>

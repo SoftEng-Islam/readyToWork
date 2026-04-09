@@ -21,8 +21,8 @@ app.use(pinia);
 app.use(router);
 app.use(MotionPlugin);
 app.use(Toast, {
-  timeout: 2500,
-  position: 'top-right',
+	timeout: 2500,
+	position: 'top-right',
 });
 
 useUiStore(pinia).initializeTheme();
