@@ -33,7 +33,7 @@
 		"typescript"
 	],
 	"scripts": {
-		"dev": "tsx watch src/server/main.ts",
+		"dev": "concurrently -c \"cyan,magenta\" -n \"server,mongo\" \"pnpm run dev:server\" \"pnpm run dev:db\"",
 		"dev:server": "tsx watch src/server/main.ts",
 		"build": "vue-tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.server.json --noEmit && vite build",
 		"preview": "pnpm build && NODE_ENV=production tsx src/server/main.ts",
@@ -52,7 +52,8 @@
 		"db:generate": "drizzle-kit generate",
 		"db:migrate": "drizzle-kit migrate",
 		"db:studio": "drizzle-kit studio",
-		"ruru": "node ./scripts/ruru.mjs"
+		"ruru": "node ./scripts/ruru.mjs",
+		"dev:db": "mongod --dbpath ./mongodb-data --port 27027 --unixSocketPrefix ./mongodb-socket"
 	},
 	"dependencies": {
 		"@apollo/client": "^4.1.6",
@@ -117,6 +118,7 @@
 		"@vue/test-utils": "^2.4.6",
 		"@vue/tsconfig": "^0.9.1",
 		"autoprefixer": "^10.4.27",
+		"concurrently": "^9.2.1",
 		"daisyui": "^5.5.19",
 		"drizzle-kit": "^0.31.10",
 		"eslint": "^10.1.0",
